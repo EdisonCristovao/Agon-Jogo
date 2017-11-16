@@ -33,10 +33,8 @@ public class AtorNetGames implements OuvidorProxy {
 	public void iniciarNovaPartida(Integer posicao) {
 		
 		if (posicao == 1){
-			System.out.println(posicao);
 			ehMinhaVez = true;
 		}else if (posicao == 2){
-			System.out.println(posicao);
 			ehMinhaVez = false;
 		}
 		

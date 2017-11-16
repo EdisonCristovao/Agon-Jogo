@@ -1,6 +1,9 @@
 package control;
 
+import java.awt.event.ActionEvent;
+
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import model.Guerreiro;
@@ -25,10 +28,19 @@ public class Jogo {
 	private AtorNetGames atorNetGames;
 	private AtorJogador atorJogador;
 
+	private Posicao deBtn = null, paBtn = null;
+	private Pecinha pecinha;
+
+	public Jogo(AtorNetGames atorNetGames, AtorJogador atorJogador) {
+		this.atorNetGames = atorNetGames;
+		this.atorJogador = atorJogador;
+	}
+
 	public void criarParticipante(String nome) {
 		if (jogador1 == null) {
 			jogador1 = new Jogador(nome, "preto");
 			jogador1.tomaVez();
+			jogadorDaVez = jogador1;
 		} else if (jogador2 == null) {
 			jogador2 = new Jogador(nome, "vermelho");
 			jogador2.passaVez();
@@ -71,7 +83,7 @@ public class Jogo {
 		return null;
 	}
 
-	// diferencia o tipo de movimento e manda fazer o trabalho
+	// algoritimo 3
 	public void tratarMovimento(Movimento movimento) {
 		if (movimento.getTipoMovimento().equals("inserir")) {
 			inserePecinha(movimento.getPecinha(), movimento.getPaBtn());
@@ -110,28 +122,6 @@ public class Jogo {
 		this.jogadorDaVez = jogadorDaVez;
 	}
 
-	public void tratarRecebeMovimento(Movimento movimento) {
-		Pecinha pecinha = getGuerreiroDoJogador();
-
-		Posicao pos = pegaPosicaoTabuleiro(movimento);
-		pos.setPecinha(pecinha);
-
-		System.out.println("setou");
-	}
-
-	private Posicao pegaPosicaoTabuleiro(Movimento movimento) {
-		for (int i = 0; i < atorJogador.getTabuleiro().getPosicoes().size(); i++) {
-			if (atorJogador.getTabuleiro().getPosicoes().get(i).getCordenadaX().equals(1)) {
-				return atorJogador.getTabuleiro().getPosicoes().get(i);
-			}
-		}
-		return null;
-	}
-
-	public void trataRecebeMovimento(Movimento movimento) {
-		
-	}
-
 	public boolean verificaPecinhaDoJogador(Posicao posicao) {
 		if (jogadorDaVez.getCor().equals(posicao.getPecinha().getCor())) {
 			System.out.println("Pecinha do jogador");
@@ -139,4 +129,113 @@ public class Jogo {
 		}
 		return false;
 	}
+
+	public void recebeEvento(ActionEvent arg0) {
+		// verifica se jogador é da vez
+
+		// recebe evento do jogador
+		try {
+			Movimento movimento;
+			if (deBtn == null && pecinha == null) {
+				if (verificaPecinhaDoJogador((Posicao) arg0.getSource())) {
+					deBtn = (Posicao) arg0.getSource();
+				} else {
+					atorJogador.informarMsg("Essa peça nao e sua, escolha uma peça valida");
+				}
+			} else if (deBtn == null && pecinha != null) {
+				deBtn = (Posicao) arg0.getSource();
+
+			} else if (deBtn != null && paBtn == null) {
+				// realiza movimento
+				paBtn = (Posicao) arg0.getSource();
+				movimento = new Movimento(deBtn, paBtn, "mover");
+				tratarMovimento(movimento);
+				atorNetGames.enviarJogada(movimento);
+				verificaSeVenceu();
+				passaVez();
+				esvaziarTudo();
+				atorJogador.setQtdPecinhas();
+			}
+
+			if (deBtn != null && pecinha != null) {
+				// realiza inserir
+				paBtn = deBtn; // pra nao fica sintaticamente feio
+				movimento = new Movimento(paBtn, pecinha, "inserir");
+				tratarMovimento(movimento);
+				atorNetGames.enviarJogada(movimento);
+				// verificaSeVenceu();
+				passaVez();
+				esvaziarTudo();
+				atorJogador.setQtdPecinhas();
+
+			}
+
+			//
+		} catch (Exception e) {
+			esvaziarTudo();
+		}
+
+	}
+
+	public void verificaSeVenceu() {
+		Tabuleiro t1 = atorJogador.getTabuleiro();
+		boolean ganhou = true;
+		int x = 5;
+		while (ganhou && x < 8) {
+			int y = 5;
+			while (ganhou && y < 8) {
+				Posicao pos = atorJogador.getPosicaoDoTabuleiro(x, y);
+				if ((pos.getPecinha() == null) || !pos.getPecinha().getCor().equals(jogadorDaVez.getCor())) {
+					ganhou = false;
+				}
+				y++;
+			}
+			x++;
+		}
+		System.out.println("VERIFICADO");
+		if (ganhou) {
+			atorJogador.informarMsg("eee venceu");
+		}
+
+	}
+
+	public void verificaSePerdeu() {
+		Tabuleiro t1 = atorJogador.getTabuleiro();
+		boolean ganhou = true;
+		int x = 5;
+		while (ganhou && x < 8) {
+			int y = 5;
+			while (ganhou && y < 8) {
+				Posicao pos = atorJogador.getPosicaoDoTabuleiro(x, y);
+				if ((pos.getPecinha() == null) || !pos.getPecinha().getCor().equals(jogadorDaVez.getCor())) {
+					ganhou = false;
+				}
+				y++;
+			}
+			x++;
+		}
+		System.out.println("VERIFICADO");
+		if (ganhou) {
+			atorJogador.informarMsg("Perdeu cara poxa");
+		}
+	}
+
+	private void esvaziarTudo() {
+		pecinha = null;
+		deBtn = null;
+		paBtn = null;
+	}
+
+	public Pecinha getPecinha() {
+		return pecinha;
+	}
+
+	public void setPecinha(Pecinha pecinha) {
+		this.pecinha = pecinha;
+	}
+
+	public void setPartidaEmAndamento(boolean partida) {
+		this.partidaEmAndamento = partida;
+	}
+
 }

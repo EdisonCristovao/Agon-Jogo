@@ -17,7 +17,4 @@ public class Tabuleiro {
 	public void setPosicoes(List<Posicao> posicoes) {
 		this.posicoes = posicoes;
 	}
-	
-	
-
 }

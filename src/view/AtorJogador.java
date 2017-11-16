@@ -16,7 +16,6 @@ import javax.swing.border.TitledBorder;
 import br.ufsc.inf.leobr.cliente.exception.NaoConectadoException;
 import control.Jogo;
 import model.Guerreiro;
-import model.Pecinha;
 import model.Posicao;
 import model.Rainha;
 import model.Tabuleiro;
@@ -39,10 +38,6 @@ public class AtorJogador {
 	private Jogo jogo;
 	private String nome;
 
-	Posicao deBtn, paBtn = null;
-
-	Pecinha pecinha = null;
-
 	JPanel panel_1, panel_2;
 
 	JButton btnColocarRainha_jogador1;
@@ -63,7 +58,7 @@ public class AtorJogador {
 		this.atorNetGames = new AtorNetGames(this);
 		List<Posicao> Posicoes = initialize();
 		tabuleiro = new Tabuleiro(Posicoes);
-
+		this.jogo = new Jogo(atorNetGames, this);
 	}
 
 	public void setQtdPecinhas() {
@@ -93,7 +88,7 @@ public class AtorJogador {
 	}
 
 	public JFrame getFrmAgon() {
-		return frmAgon;
+		return this.frmAgon;
 	}
 
 	private List<Posicao> initialize() {
@@ -103,60 +98,14 @@ public class AtorJogador {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
 				if (atorNetGames.getEhMinhaVez()) {
-					try {
-						Movimento movimento;
-						if (deBtn == null && pecinha == null) {
-							// Mover
-							if (jogo.verificaPecinhaDoJogador((Posicao) arg0.getSource())) {
-								deBtn = (Posicao) arg0.getSource();
-							} else {
-								informarMsg("Essa peça nao e sua, escolha uma peça valida");
-							}
-						} else if (deBtn == null && pecinha != null) {
-							// inserir
-							deBtn = (Posicao) arg0.getSource();
-
-						} else if (deBtn != null && paBtn == null) {
-							// realiza movimento
-							paBtn = (Posicao) arg0.getSource();
-							movimento = new Movimento(deBtn, paBtn, "mover");
-							jogo.tratarMovimento(movimento);
-							atorNetGames.enviarJogada(movimento);
-							jogo.passaVez();
-							esvaziarTudo();
-							setQtdPecinhas();
-						}
-
-						if (deBtn != null && pecinha != null) {
-							// realiza inserir
-							paBtn = deBtn; // pra nao fica sintaticamente feio
-							movimento = new Movimento(paBtn, pecinha, "inserir");
-							jogo.tratarMovimento(movimento);
-							atorNetGames.enviarJogada(movimento);
-							jogo.passaVez();
-							esvaziarTudo();
-							setQtdPecinhas();
-						}
-
-						//
-					} catch (Exception e) {
-						esvaziarTudo();
-
-					}
+					jogo.recebeEvento(arg0);
 				} else {
-					JOptionPane.showMessageDialog(frmAgon, "Aguarde sua vez");
+					informarMsg("Aguarde sua vez");
 				}
+
 			}
 
-			
-			
-			private void esvaziarTudo() {
-				deBtn = null;
-				paBtn = null;
-				pecinha = null;
-			}
 		};
 
 		frmAgon = new JFrame();
@@ -1383,11 +1332,15 @@ public class AtorJogador {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (atorNetGames.getEhMinhaVez() && pecinha == null) {
-					pecinha = jogo.getGuerreiroDoJogador();
+
+				if (atorNetGames.getEhMinhaVez() && jogo.getPecinha() == null) {
+					jogo.setPecinha(jogo.getGuerreiroDoJogador());
+					if (jogo.getPecinha() == null) {
+						informarMsg("Todos os guerreiros estao no tabuleiro");
+					}
 				} else {
-					JOptionPane.showMessageDialog(getFrmAgon(), "Aguarde sua vez");
-					pecinha = null;
+					informarMsg("Aguarde sua vez");
+					jogo.setPecinha(null);
 				}
 			}
 		};
@@ -1396,11 +1349,14 @@ public class AtorJogador {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (atorNetGames.getEhMinhaVez() && pecinha == null) {
-					pecinha = jogo.getRainhaDoJogador();
+				if (atorNetGames.getEhMinhaVez() && jogo.getPecinha() == null) {
+					jogo.setPecinha(jogo.getRainhaDoJogador());
+					if (jogo.getPecinha() == null) {
+						informarMsg("Todos os Rainha estao no tabuleiro");
+					}
 				} else {
-					JOptionPane.showMessageDialog(getFrmAgon(), "Aguarde sua vez");
-					pecinha = null;
+					informarMsg("Aguarde sua vez");
+					jogo.setPecinha(null);
 				}
 			}
 		};
@@ -1416,42 +1372,45 @@ public class AtorJogador {
 		btnColocarGuerreiro_jogador1.addActionListener(colocarGuerreiro);
 
 		// ==========Pra nao ter o trabalho de conecta toda hora==================
-		/*
-		 * nome = "Edison"; atorNetGames.conectar(nome, "localhost");
-		 * mntmNovaPartida.setEnabled(true); mntmDesconectar.setEnabled(true);
-		 */
+
+		atorNetGames.conectar("Um cara ai", "localhost");
+		mntmNovaPartida.setEnabled(true);
+		mntmDesconectar.setEnabled(true);
+
 		// ========================================
 
 		return retorno;
 	}
 
 	public void informarMsg(String msg) {
-		JOptionPane.showMessageDialog(null, msg);
+		JOptionPane.showMessageDialog(getFrmAgon(), msg);
 	}
 
+	//Algoritimo 1
 	public void iniciarPartidaRede(boolean comecaFalando) {
 
 		String nomeAdversario = atorNetGames.obterNomeAdversario();
-		jogo = new Jogo();
 
 		if (comecaFalando) {
 			jogo.criarParticipante(this.nome);
 			jogo.criarParticipante(nomeAdversario);
-			JOptionPane.showMessageDialog(this.getFrmAgon(), "Voce Começa Jogando");
+			informarMsg("Começa Jogando");
 			desabilitaBotoesParaJogador1();
 		} else {
 			jogo.criarParticipante(nomeAdversario);
 			jogo.criarParticipante(this.nome);
-			JOptionPane.showMessageDialog(this.getFrmAgon(), "Aguarde a jogada");
+			informarMsg("Aguarde sua vez");
 			desabilitaBotoesParaJogador2();
 		}
-		panel_1.setBorder(new TitledBorder(null, jogo.getJogador1().getNome(), TitledBorder.LEADING, TitledBorder.TOP,
-				null, null));
-		panel_2.setBorder(new TitledBorder(null, jogo.getJogador2().getNome(), TitledBorder.LEADING, TitledBorder.TOP,
-				null, null));
+		panel_1.setBorder(new TitledBorder(null, jogo.getJogador1().getNome() + " - Preta", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
+		panel_2.setBorder(new TitledBorder(null, jogo.getJogador2().getNome() + " - Vermelha", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
 		setQtdPecinhas();
+		jogo.setPartidaEmAndamento(true);
 	}
-
+	
+	//algoritimo 2
 	public void receberMovimentoRede(Movimento movimento) {
 		if (movimento.getTipoMovimento().equals("inserir")) {
 			movimento.setPaBtn(
@@ -1470,6 +1429,7 @@ public class AtorJogador {
 		}
 
 		jogo.tratarMovimento(movimento);
+		jogo.verificaSePerdeu();
 		jogo.passaVez();
 		setQtdPecinhas();
 
