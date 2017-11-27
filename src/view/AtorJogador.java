@@ -36,23 +36,19 @@ public class AtorJogador {
 	private AtorNetGames atorNetGames;
 	private Tabuleiro tabuleiro;
 	private Jogo jogo;
-	private String nome;
+	private String nome, ip = "netgames.labsoft.ufsc.br";
 
-	JPanel panel_1, panel_2;
+	private JPanel panel_1, panel_2;
 
-	JButton btnColocarRainha_jogador1;
-	JButton btnColocarGuerreiro_jogador1;
-	JButton btnRenderse_jogador1;
+	private JButton btnColocarRainha_jogador1, btnColocarGuerreiro_jogador1, btnRenderse_jogador1;
 
-	JButton btnColocarRainha_jogador2;
-	JButton btnColocarGuerreiro_jogador2;
-	JButton btnRenderse_jogador2;
+	private JButton btnColocarRainha_jogador2, btnColocarGuerreiro_jogador2, btnRenderse_jogador2;
 
-	JLabel rainhasJogador1 = new JLabel("0");
-	JLabel guerreirosJogador1 = new JLabel("0");
+	private JLabel rainhasJogador1 = new JLabel("0");
+	private JLabel guerreirosJogador1 = new JLabel("0");
 
-	JLabel rainhasJogador2 = new JLabel("0");
-	JLabel guerreirosJogador2 = new JLabel("0");
+	private JLabel rainhasJogador2 = new JLabel("0");
+	private JLabel guerreirosJogador2 = new JLabel("0");
 
 	public AtorJogador() {
 		this.atorNetGames = new AtorNetGames(this);
@@ -61,41 +57,10 @@ public class AtorJogador {
 		this.jogo = new Jogo(atorNetGames, this);
 	}
 
-	public void setQtdPecinhas() {
-		rainhasJogador1.setText("" + jogo.getJogador1().getRainhas().size());
-		guerreirosJogador1.setText("" + jogo.getJogador1().getGuerreiros().size());
-
-		rainhasJogador2.setText("" + jogo.getJogador2().getRainhas().size());
-		guerreirosJogador2.setText("" + jogo.getJogador2().getGuerreiros().size());
-	}
-
-	public void desabilitaBotoesParaJogador1() {
-
-		btnColocarRainha_jogador2.setEnabled(false);
-		btnColocarGuerreiro_jogador2.setEnabled(false);
-		btnRenderse_jogador2.setEnabled(false);
-	}
-
-	public void desabilitaBotoesParaJogador2() {
-
-		btnColocarRainha_jogador1.setEnabled(false);
-		btnColocarGuerreiro_jogador1.setEnabled(false);
-		btnRenderse_jogador1.setEnabled(false);
-	}
-
-	public Tabuleiro getTabuleiro() {
-		return this.tabuleiro;
-	}
-
-	public JFrame getFrmAgon() {
-		return this.frmAgon;
-	}
-
 	private List<Posicao> initialize() {
 		List<Posicao> retorno = new ArrayList<Posicao>();
 
 		ActionListener trocaBotao = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (atorNetGames.getEhMinhaVez()) {
@@ -103,15 +68,13 @@ public class AtorJogador {
 				} else {
 					informarMsg("Aguarde sua vez");
 				}
-
 			}
-
 		};
 
 		frmAgon = new JFrame();
 		frmAgon.setTitle("Agon");
-		frmAgon.setBounds(100, 100, 920, 528);
-		frmAgon.setResizable(false);
+		frmAgon.setBounds(100, 100, 920, 480);
+		frmAgon.setResizable(true);
 		frmAgon.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel panel = new JPanel();
@@ -222,7 +185,7 @@ public class AtorJogador {
 		btn21.addActionListener(trocaBotao);
 		retorno.add(btn21);
 
-		Posicao btn22 = new Posicao(11, 10, 'B');
+		Posicao btn22 = new Posicao(11, 10, 'A');
 		btn22.setBackground(Color.WHITE);
 		btn22.addActionListener(trocaBotao);
 		retorno.add(btn22);
@@ -233,37 +196,37 @@ public class AtorJogador {
 		btn24.addActionListener(trocaBotao);
 		retorno.add(btn24);
 
-		Posicao btn25 = new Posicao(3, 9, 'B');
+		Posicao btn25 = new Posicao(3, 9, 'C');
 		btn25.setBackground(Color.WHITE);
 		btn25.addActionListener(trocaBotao);
 		retorno.add(btn25);
 
-		Posicao btn26 = new Posicao(4, 9, 'B');
+		Posicao btn26 = new Posicao(4, 9, 'C');
 		btn26.setBackground(Color.WHITE);
 		btn26.addActionListener(trocaBotao);
 		retorno.add(btn26);
 
-		Posicao btn28 = new Posicao(6, 9, 'B');
+		Posicao btn28 = new Posicao(6, 9, 'C');
 		btn28.setBackground(Color.WHITE);
 		btn28.addActionListener(trocaBotao);
 		retorno.add(btn28);
 
-		Posicao btn27 = new Posicao(5, 9, 'B');
+		Posicao btn27 = new Posicao(5, 9, 'C');
 		btn27.setBackground(Color.WHITE);
 		btn27.addActionListener(trocaBotao);
 		retorno.add(btn27);
 
-		Posicao btn29 = new Posicao(7, 9, 'B');
+		Posicao btn29 = new Posicao(7, 9, 'C');
 		btn29.setBackground(Color.WHITE);
 		btn29.addActionListener(trocaBotao);
 		retorno.add(btn29);
 
-		Posicao btn30 = new Posicao(8, 9, 'B');
+		Posicao btn30 = new Posicao(8, 9, 'C');
 		btn30.setBackground(Color.WHITE);
 		btn30.addActionListener(trocaBotao);
 		retorno.add(btn30);
 
-		Posicao btn31 = new Posicao(9, 9, 'B');
+		Posicao btn31 = new Posicao(9, 9, 'C');
 		btn31.setBackground(Color.WHITE);
 		btn31.addActionListener(trocaBotao);
 		retorno.add(btn31);
@@ -273,12 +236,12 @@ public class AtorJogador {
 		btn32.addActionListener(trocaBotao);
 		retorno.add(btn32);
 
-		Posicao btn33 = new Posicao(11, 9, 'B');
+		Posicao btn33 = new Posicao(11, 9, 'A');
 		btn33.setBackground(Color.WHITE);
 		btn33.addActionListener(trocaBotao);
 		retorno.add(btn33);
 
-		Posicao btn34 = new Posicao(1, 8, 'B');
+		Posicao btn34 = new Posicao(1, 8, 'A');
 		btn34.setBackground(Color.WHITE);
 		btn34.addActionListener(trocaBotao);
 		retorno.add(btn34);
@@ -288,37 +251,37 @@ public class AtorJogador {
 		btn35.addActionListener(trocaBotao);
 		retorno.add(btn35);
 
-		Posicao btn36 = new Posicao(3, 8, 'B');
+		Posicao btn36 = new Posicao(3, 8, 'C');
 		btn36.setBackground(Color.WHITE);
 		btn36.addActionListener(trocaBotao);
 		retorno.add(btn36);
 
-		Posicao btn37 = new Posicao(4, 8, 'B');
+		Posicao btn37 = new Posicao(4, 8, 'D');
 		btn37.setBackground(Color.LIGHT_GRAY);
 		btn37.addActionListener(trocaBotao);
 		retorno.add(btn37);
 
-		Posicao btn38 = new Posicao(5, 8, 'B');
+		Posicao btn38 = new Posicao(5, 8, 'D');
 		btn38.setBackground(Color.LIGHT_GRAY);
 		btn38.addActionListener(trocaBotao);
 		retorno.add(btn38);
 
-		Posicao btn39 = new Posicao(6, 8, 'B');
+		Posicao btn39 = new Posicao(6, 8, 'D');
 		btn39.setBackground(Color.LIGHT_GRAY);
 		btn39.addActionListener(trocaBotao);
 		retorno.add(btn39);
 
-		Posicao btn40 = new Posicao(7, 8, 'B');
+		Posicao btn40 = new Posicao(7, 8, 'D');
 		btn40.setBackground(Color.LIGHT_GRAY);
 		btn40.addActionListener(trocaBotao);
 		retorno.add(btn40);
 
-		Posicao btn41 = new Posicao(8, 8, 'B');
+		Posicao btn41 = new Posicao(8, 8, 'D');
 		btn41.setBackground(Color.LIGHT_GRAY);
 		btn41.addActionListener(trocaBotao);
 		retorno.add(btn41);
 
-		Posicao btn42 = new Posicao(9, 8, 'B');
+		Posicao btn42 = new Posicao(9, 8, 'C');
 		btn42.setBackground(Color.WHITE);
 		btn42.addActionListener(trocaBotao);
 		retorno.add(btn42);
@@ -328,12 +291,12 @@ public class AtorJogador {
 		btn43.addActionListener(trocaBotao);
 		retorno.add(btn43);
 
-		Posicao btn44 = new Posicao(11, 8, 'B');
+		Posicao btn44 = new Posicao(11, 8, 'A');
 		btn44.setBackground(Color.WHITE);
 		btn44.addActionListener(trocaBotao);
 		retorno.add(btn44);
 
-		Posicao btn23 = new Posicao(1, 9, 'B');
+		Posicao btn23 = new Posicao(1, 9, 'A');
 		btn23.setBackground(Color.WHITE);
 		btn23.addActionListener(trocaBotao);
 		retorno.add(btn23);
@@ -343,37 +306,37 @@ public class AtorJogador {
 		btn46.addActionListener(trocaBotao);
 		retorno.add(btn46);
 
-		Posicao btn47 = new Posicao(3, 7, 'B');
+		Posicao btn47 = new Posicao(3, 7, 'C');
 		btn47.setBackground(Color.WHITE);
 		btn47.addActionListener(trocaBotao);
 		retorno.add(btn47);
 
-		Posicao btn48 = new Posicao(4, 7, 'B');
+		Posicao btn48 = new Posicao(4, 7, 'D');
 		btn48.setBackground(Color.LIGHT_GRAY);
 		btn48.addActionListener(trocaBotao);
 		retorno.add(btn48);
 
-		Posicao btn50 = new Posicao(6, 7, 'B');
+		Posicao btn50 = new Posicao(6, 7, 'E');
 		btn50.setBackground(Color.WHITE);
 		btn50.addActionListener(trocaBotao);
 		retorno.add(btn50);
 
-		Posicao btn49 = new Posicao(5, 7, 'B');
+		Posicao btn49 = new Posicao(5, 7, 'E');
 		btn49.setBackground(Color.WHITE);
 		btn49.addActionListener(trocaBotao);
 		retorno.add(btn49);
 
-		Posicao btn51 = new Posicao(7, 7, 'B');
+		Posicao btn51 = new Posicao(7, 7, 'E');
 		btn51.setBackground(Color.WHITE);
 		btn51.addActionListener(trocaBotao);
 		retorno.add(btn51);
 
-		Posicao btn52 = new Posicao(8, 7, 'B');
+		Posicao btn52 = new Posicao(8, 7, 'D');
 		btn52.setBackground(Color.LIGHT_GRAY);
 		btn52.addActionListener(trocaBotao);
 		retorno.add(btn52);
 
-		Posicao btn53 = new Posicao(9, 7, 'B');
+		Posicao btn53 = new Posicao(9, 7, 'C');
 		btn53.setBackground(Color.WHITE);
 		btn53.addActionListener(trocaBotao);
 		retorno.add(btn53);
@@ -383,12 +346,12 @@ public class AtorJogador {
 		btn54.addActionListener(trocaBotao);
 		retorno.add(btn54);
 
-		Posicao btn55 = new Posicao(11, 7, 'B');
+		Posicao btn55 = new Posicao(11, 7, 'A');
 		btn55.setBackground(Color.WHITE);
 		btn55.addActionListener(trocaBotao);
 		retorno.add(btn55);
 
-		Posicao btn56 = new Posicao(1, 6, 'B');
+		Posicao btn56 = new Posicao(1, 6, 'A');
 		btn56.setBackground(Color.WHITE);
 		btn56.addActionListener(trocaBotao);
 		retorno.add(btn56);
@@ -398,37 +361,37 @@ public class AtorJogador {
 		btn57.addActionListener(trocaBotao);
 		retorno.add(btn57);
 
-		Posicao btn58 = new Posicao(3, 6, 'B');
+		Posicao btn58 = new Posicao(3, 6, 'C');
 		btn58.setBackground(Color.WHITE);
 		btn58.addActionListener(trocaBotao);
 		retorno.add(btn58);
 
-		Posicao btn59 = new Posicao(4, 6, 'B');
+		Posicao btn59 = new Posicao(4, 6, 'D');
 		btn59.setBackground(Color.LIGHT_GRAY);
 		btn59.addActionListener(trocaBotao);
 		retorno.add(btn59);
 
-		Posicao btn60 = new Posicao(5, 6, 'B');
+		Posicao btn60 = new Posicao(5, 6, 'E');
 		btn60.setBackground(Color.WHITE);
 		btn60.addActionListener(trocaBotao);
 		retorno.add(btn60);
 
-		Posicao btn61 = new Posicao(6, 6, 'B');
+		Posicao btn61 = new Posicao(6, 6, 'F');
 		btn61.setBackground(Color.LIGHT_GRAY);
 		btn61.addActionListener(trocaBotao);
 		retorno.add(btn61);
 
-		Posicao btn62 = new Posicao(7, 6, 'B');
+		Posicao btn62 = new Posicao(7, 6, 'E');
 		btn62.setBackground(Color.WHITE);
 		btn62.addActionListener(trocaBotao);
 		retorno.add(btn62);
 
-		Posicao btn63 = new Posicao(8, 6, 'B');
+		Posicao btn63 = new Posicao(8, 6, 'D');
 		btn63.setBackground(Color.LIGHT_GRAY);
 		btn63.addActionListener(trocaBotao);
 		retorno.add(btn63);
 
-		Posicao btn64 = new Posicao(9, 6, 'B');
+		Posicao btn64 = new Posicao(9, 6, 'C');
 		btn64.setBackground(Color.WHITE);
 		btn64.addActionListener(trocaBotao);
 		retorno.add(btn64);
@@ -438,7 +401,7 @@ public class AtorJogador {
 		btn65.addActionListener(trocaBotao);
 		retorno.add(btn65);
 
-		Posicao btn66 = new Posicao(11, 6, 'B');
+		Posicao btn66 = new Posicao(11, 6, 'A');
 		btn66.setBackground(Color.WHITE);
 		btn66.addActionListener(trocaBotao);
 		retorno.add(btn66);
@@ -448,37 +411,37 @@ public class AtorJogador {
 		btn68.addActionListener(trocaBotao);
 		retorno.add(btn68);
 
-		Posicao btn69 = new Posicao(3, 5, 'B');
+		Posicao btn69 = new Posicao(3, 5, 'C');
 		btn69.setBackground(Color.WHITE);
 		btn69.addActionListener(trocaBotao);
 		retorno.add(btn69);
 
-		Posicao btn70 = new Posicao(4, 5, 'B');
+		Posicao btn70 = new Posicao(4, 5, 'D');
 		btn70.setBackground(Color.LIGHT_GRAY);
 		btn70.addActionListener(trocaBotao);
 		retorno.add(btn70);
 
-		Posicao btn72 = new Posicao(6, 5, 'B');
+		Posicao btn72 = new Posicao(6, 5, 'E');
 		btn72.setBackground(Color.WHITE);
 		btn72.addActionListener(trocaBotao);
 		retorno.add(btn72);
 
-		Posicao btn71 = new Posicao(5, 5, 'B');
+		Posicao btn71 = new Posicao(5, 5, 'E');
 		btn71.setBackground(Color.WHITE);
 		btn71.addActionListener(trocaBotao);
 		retorno.add(btn71);
 
-		Posicao btn73 = new Posicao(7, 5, 'B');
+		Posicao btn73 = new Posicao(7, 5, 'E');
 		btn73.setBackground(Color.WHITE);
 		btn73.addActionListener(trocaBotao);
 		retorno.add(btn73);
 
-		Posicao btn74 = new Posicao(8, 5, 'B');
+		Posicao btn74 = new Posicao(8, 5, 'D');
 		btn74.setBackground(Color.LIGHT_GRAY);
 		btn74.addActionListener(trocaBotao);
 		retorno.add(btn74);
 
-		Posicao btn75 = new Posicao(9, 5, 'B');
+		Posicao btn75 = new Posicao(9, 5, 'C');
 		btn75.setBackground(Color.WHITE);
 		btn75.addActionListener(trocaBotao);
 		retorno.add(btn75);
@@ -488,12 +451,12 @@ public class AtorJogador {
 		btn76.addActionListener(trocaBotao);
 		retorno.add(btn76);
 
-		Posicao btn77 = new Posicao(11, 5, 'B');
+		Posicao btn77 = new Posicao(11, 5, 'A');
 		btn77.setBackground(Color.WHITE);
 		btn77.addActionListener(trocaBotao);
 		retorno.add(btn77);
 
-		Posicao btn78 = new Posicao(1, 4, 'B');
+		Posicao btn78 = new Posicao(1, 4, 'A');
 		btn78.setBackground(Color.WHITE);
 		btn78.addActionListener(trocaBotao);
 		retorno.add(btn78);
@@ -503,37 +466,37 @@ public class AtorJogador {
 		btn79.addActionListener(trocaBotao);
 		retorno.add(btn79);
 
-		Posicao btn80 = new Posicao(3, 4, 'B');
+		Posicao btn80 = new Posicao(3, 4, 'C');
 		btn80.setBackground(Color.WHITE);
 		btn80.addActionListener(trocaBotao);
 		retorno.add(btn80);
 
-		Posicao btn81 = new Posicao(4, 4, 'B');
+		Posicao btn81 = new Posicao(4, 4, 'D');
 		btn81.setBackground(Color.LIGHT_GRAY);
 		btn81.addActionListener(trocaBotao);
 		retorno.add(btn81);
 
-		Posicao btn82 = new Posicao(5, 4, 'B');
+		Posicao btn82 = new Posicao(5, 4, 'D');
 		btn82.setBackground(Color.LIGHT_GRAY);
 		btn82.addActionListener(trocaBotao);
 		retorno.add(btn82);
 
-		Posicao btn83 = new Posicao(6, 4, 'B');
+		Posicao btn83 = new Posicao(6, 4, 'D');
 		btn83.setBackground(Color.LIGHT_GRAY);
 		btn83.addActionListener(trocaBotao);
 		retorno.add(btn83);
 
-		Posicao btn84 = new Posicao(7, 4, 'B');
+		Posicao btn84 = new Posicao(7, 4, 'D');
 		btn84.setBackground(Color.LIGHT_GRAY);
 		btn84.addActionListener(trocaBotao);
 		retorno.add(btn84);
 
-		Posicao btn85 = new Posicao(8, 4, 'B');
+		Posicao btn85 = new Posicao(8, 4, 'D');
 		btn85.setBackground(Color.LIGHT_GRAY);
 		btn85.addActionListener(trocaBotao);
 		retorno.add(btn85);
 
-		Posicao btn86 = new Posicao(9, 4, 'B');
+		Posicao btn86 = new Posicao(9, 4, 'C');
 		btn86.setBackground(Color.WHITE);
 		btn86.addActionListener(trocaBotao);
 		retorno.add(btn86);
@@ -543,22 +506,22 @@ public class AtorJogador {
 		btn87.addActionListener(trocaBotao);
 		retorno.add(btn87);
 
-		Posicao btn67 = new Posicao(1, 5, 'B');
+		Posicao btn67 = new Posicao(1, 5, 'A');
 		btn67.setBackground(Color.WHITE);
 		btn67.addActionListener(trocaBotao);
 		retorno.add(btn67);
 
-		Posicao btn45 = new Posicao(1, 7, 'B');
+		Posicao btn45 = new Posicao(1, 7, 'A');
 		btn45.setBackground(Color.WHITE);
 		btn45.addActionListener(trocaBotao);
 		retorno.add(btn45);
 
-		Posicao btn88 = new Posicao(11, 4, 'B');
+		Posicao btn88 = new Posicao(11, 4, 'A');
 		btn88.setBackground(Color.WHITE);
 		btn88.addActionListener(trocaBotao);
 		retorno.add(btn88);
 
-		Posicao btn89 = new Posicao(1, 3, 'B');
+		Posicao btn89 = new Posicao(1, 3, 'A');
 		btn89.setBackground(Color.WHITE);
 		btn89.addActionListener(trocaBotao);
 		retorno.add(btn89);
@@ -568,37 +531,37 @@ public class AtorJogador {
 		btn90.addActionListener(trocaBotao);
 		retorno.add(btn90);
 
-		Posicao btn91 = new Posicao(3, 3, 'B');
+		Posicao btn91 = new Posicao(3, 3, 'C');
 		btn91.setBackground(Color.WHITE);
 		btn91.addActionListener(trocaBotao);
 		retorno.add(btn91);
 
-		Posicao btn92 = new Posicao(4, 3, 'B');
+		Posicao btn92 = new Posicao(4, 3, 'C');
 		btn92.setBackground(Color.WHITE);
 		btn92.addActionListener(trocaBotao);
 		retorno.add(btn92);
 
-		Posicao btn93 = new Posicao(5, 3, 'B');
+		Posicao btn93 = new Posicao(5, 3, 'C');
 		btn93.setBackground(Color.WHITE);
 		btn93.addActionListener(trocaBotao);
 		retorno.add(btn93);
 
-		Posicao btn94 = new Posicao(6, 3, 'B');
+		Posicao btn94 = new Posicao(6, 3, 'C');
 		btn94.setBackground(Color.WHITE);
 		btn94.addActionListener(trocaBotao);
 		retorno.add(btn94);
 
-		Posicao btn95 = new Posicao(7, 3, 'B');
+		Posicao btn95 = new Posicao(7, 3, 'C');
 		btn95.setBackground(Color.WHITE);
 		btn95.addActionListener(trocaBotao);
 		retorno.add(btn95);
 
-		Posicao btn96 = new Posicao(8, 3, 'B');
+		Posicao btn96 = new Posicao(8, 3, 'C');
 		btn96.setBackground(Color.WHITE);
 		btn96.addActionListener(trocaBotao);
 		retorno.add(btn96);
 
-		Posicao btn97 = new Posicao(9, 3, 'B');
+		Posicao btn97 = new Posicao(9, 3, 'C');
 		btn97.setBackground(Color.WHITE);
 		btn97.addActionListener(trocaBotao);
 		retorno.add(btn97);
@@ -608,12 +571,12 @@ public class AtorJogador {
 		btn98.addActionListener(trocaBotao);
 		retorno.add(btn98);
 
-		Posicao btn99 = new Posicao(11, 3, 'B');
+		Posicao btn99 = new Posicao(11, 3, 'A');
 		btn99.setBackground(Color.WHITE);
 		btn99.addActionListener(trocaBotao);
 		retorno.add(btn99);
 
-		Posicao btn100 = new Posicao(1, 2, 'B');
+		Posicao btn100 = new Posicao(1, 2, 'A');
 		btn100.setBackground(Color.WHITE);
 		btn100.addActionListener(trocaBotao);
 		retorno.add(btn100);
@@ -663,62 +626,62 @@ public class AtorJogador {
 		btn109.addActionListener(trocaBotao);
 		retorno.add(btn109);
 
-		Posicao btn110 = new Posicao(11, 2, 'B');
+		Posicao btn110 = new Posicao(11, 2, 'A');
 		btn110.setBackground(Color.WHITE);
 		btn110.addActionListener(trocaBotao);
 		retorno.add(btn110);
 
-		Posicao btn111 = new Posicao(1, 1, 'B');
+		Posicao btn111 = new Posicao(1, 1, 'A');
 		btn111.setBackground(Color.WHITE);
 		btn111.addActionListener(trocaBotao);
 		retorno.add(btn111);
 
-		Posicao btn112 = new Posicao(2, 1, 'B');
+		Posicao btn112 = new Posicao(2, 1, 'A');
 		btn112.setBackground(Color.WHITE);
 		btn112.addActionListener(trocaBotao);
 		retorno.add(btn112);
 
-		Posicao btn113 = new Posicao(3, 1, 'B');
+		Posicao btn113 = new Posicao(3, 1, 'A');
 		btn113.setBackground(Color.WHITE);
 		btn113.addActionListener(trocaBotao);
 		retorno.add(btn113);
 
-		Posicao btn114 = new Posicao(4, 1, 'B');
+		Posicao btn114 = new Posicao(4, 1, 'A');
 		btn114.setBackground(Color.WHITE);
 		btn114.addActionListener(trocaBotao);
 		retorno.add(btn114);
 
-		Posicao btn115 = new Posicao(5, 1, 'B');
+		Posicao btn115 = new Posicao(5, 1, 'A');
 		btn115.setBackground(Color.WHITE);
 		btn115.addActionListener(trocaBotao);
 		retorno.add(btn115);
 
-		Posicao btn116 = new Posicao(6, 1, 'B');
+		Posicao btn116 = new Posicao(6, 1, 'A');
 		btn116.setBackground(Color.WHITE);
 		btn116.addActionListener(trocaBotao);
 		retorno.add(btn116);
 
-		Posicao btn117 = new Posicao(7, 1, 'B');
+		Posicao btn117 = new Posicao(7, 1, 'A');
 		btn117.setBackground(Color.WHITE);
 		btn117.addActionListener(trocaBotao);
 		retorno.add(btn117);
 
-		Posicao btn118 = new Posicao(8, 1, 'B');
+		Posicao btn118 = new Posicao(8, 1, 'A');
 		btn118.setBackground(Color.WHITE);
 		btn118.addActionListener(trocaBotao);
 		retorno.add(btn118);
 
-		Posicao btn119 = new Posicao(9, 1, 'B');
+		Posicao btn119 = new Posicao(9, 1, 'A');
 		btn119.setBackground(Color.WHITE);
 		btn119.addActionListener(trocaBotao);
 		retorno.add(btn119);
 
-		Posicao btn120 = new Posicao(10, 1, 'B');
+		Posicao btn120 = new Posicao(10, 1, 'A');
 		btn120.setBackground(Color.WHITE);
 		btn120.addActionListener(trocaBotao);
 		retorno.add(btn120);
 
-		Posicao btn121 = new Posicao(11, 1, 'B');
+		Posicao btn121 = new Posicao(11, 1, 'A');
 		btn121.setBackground(Color.WHITE);
 		btn121.addActionListener(trocaBotao);
 		retorno.add(btn121);
@@ -1223,7 +1186,7 @@ public class AtorJogador {
 
 		btnColocarGuerreiro_jogador1 = new JButton("Colocar Guerreiro");
 
-		btnRenderse_jogador1 = new JButton("Render-se 1");
+		btnRenderse_jogador1 = new JButton("Render-se");
 
 		rainhasJogador1 = new JLabel("0");
 
@@ -1280,6 +1243,15 @@ public class AtorJogador {
 		JMenuItem mntmSair = new JMenuItem("Sair");
 		mnNewMenu.add(mntmSair);
 
+		JMenu mnConfig = new JMenu("Configuraçoes");
+		menuBar.add(mnConfig);
+
+		JMenuItem mnServidor = new JMenuItem("Mudar Servidor");
+		mnConfig.add(mnServidor);
+
+		JMenuItem mnNome = new JMenuItem("Mudar Nome");
+		mnConfig.add(mnNome);
+
 		JMenu mnAjuda = new JMenu("Ajuda");
 		menuBar.add(mnAjuda);
 
@@ -1288,19 +1260,49 @@ public class AtorJogador {
 
 		frmAgon.setVisible(true);
 
+		////////////////////// ACTION LISTENER//////////////////////////////////////q
+
+		ActionListener sair = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		};
+
 		ActionListener conectar = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				solicitarNome();
-				atorNetGames.conectar(nome, "localhost");
-				mntmNovaPartida.setEnabled(true);
-				mntmDesconectar.setEnabled(true);
-				informarMsg("Conectado");
+				try {
+					atorNetGames.conectar(nome, ip);
+					mntmNovaPartida.setEnabled(true);
+					mntmDesconectar.setEnabled(true);
+					informarMsg("Conexão Bem sucedida!!");
+				} catch (Exception e2) {
+					informarMsg("Erro ao conectar");
+				}
 			}
 
 			private void solicitarNome() {
 				nome = JOptionPane.showInputDialog("Digite o nome do jogador");
+			}
+		};
+
+		ActionListener mudaServer = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ip = JOptionPane.showInputDialog("Informe o IP do novo servidor");
+			}
+		};
+
+		ActionListener mudaNome = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				nome = JOptionPane.showInputDialog("Digite o novo nome");
 			}
 		};
 
@@ -1315,6 +1317,24 @@ public class AtorJogador {
 			}
 		};
 
+		ActionListener ajudaMenu = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(getFrmAgon(), "Bem vindo ao Agon\n" + "\n" + "Do jogo\n" + "\n"
+						+ "2 jogadores, um com peças vermelhas outro com peças pretas.\n"
+						+ "cada um recebe 1 rainha e 8 guerreiro.\n"
+						+ "Vencedor será o jogador que primeiro colocar sua rainha no centro e\n"
+						+ "cerca-la com seus guerreiros.\n" + "\n" + "Como jogar.\n" + "\n"
+						+ "jogadores inserem as peças na borda do tabuleiro.\n"
+						+ "jogadores apenas podem avançar para o centro ou dentro da propria trilha.\n"
+						+ "jogadores podem cercar o inimigo colocando uma peça em cada lado.\n" + "\n"
+						+ "Desenvolvedor: Edison Cristovao Junior.\n" + "Materia: Engenharia de Software I 2017.2.\n"
+						+ "Prof: Dr Ricardo Pereira e Silva\n" + "\n" + "\n" + "\n" + "\n" + "", "Regras do jogo", 1,
+						null);
+			}
+		};
+
 		ActionListener iniciarPartida = new ActionListener() {
 
 			@Override
@@ -1322,8 +1342,7 @@ public class AtorJogador {
 				try {
 					atorNetGames.iniciarPartidaRede();
 				} catch (NaoConectadoException e1) {
-					JOptionPane.showMessageDialog(getFrmAgon(), "Erro ao iniciar partida");
-					e1.printStackTrace();
+					informarMsg("Erro ao iniciar partida");
 				}
 			}
 		};
@@ -1339,8 +1358,12 @@ public class AtorJogador {
 						informarMsg("Todos os guerreiros estao no tabuleiro");
 					}
 				} else {
-					informarMsg("Aguarde sua vez");
-					jogo.setPecinha(null);
+					if (jogo.getPecinha() != null) {
+						informarMsg("Voce ja pode inserir a peça, escolha a posição");
+					} else {
+						informarMsg("Aguarde sua vez");
+						jogo.setPecinha(null);
+					}
 				}
 			}
 		};
@@ -1355,15 +1378,39 @@ public class AtorJogador {
 						informarMsg("Todos os Rainha estao no tabuleiro");
 					}
 				} else {
-					informarMsg("Aguarde sua vez");
-					jogo.setPecinha(null);
+					if (jogo.getPecinha() != null) {
+						informarMsg("Voce ja pode inserir a peça, escolha a posição");
+					} else {
+						informarMsg("Aguarde sua vez");
+						jogo.setPecinha(null);
+					}
 				}
 			}
+		};
+
+		ActionListener render = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (atorNetGames.getEhMinhaVez()) {
+					Movimento movimento = new Movimento("render");
+					atorNetGames.enviarJogada(movimento);
+					informarMsg("Voce perdeu");
+					finalizaPartida();
+				} else {
+					informarMsg("Aguarde sua vez");
+				}
+			}
+
 		};
 
 		mntmConectar.addActionListener(conectar);
 		mntmDesconectar.addActionListener(desconectar);
 		mntmNovaPartida.addActionListener(iniciarPartida);
+		mnServidor.addActionListener(mudaServer);
+		mnNome.addActionListener(mudaNome);
+		mntmAjuda.addActionListener(ajudaMenu);
+		mntmSair.addActionListener(sair);
 
 		btnColocarGuerreiro_jogador2.addActionListener(colocarGuerreiro);
 		btnColocarRainha_jogador2.addActionListener(colocarRainha);
@@ -1371,36 +1418,39 @@ public class AtorJogador {
 		btnColocarRainha_jogador1.addActionListener(colocarRainha);
 		btnColocarGuerreiro_jogador1.addActionListener(colocarGuerreiro);
 
-		// ==========Pra nao ter o trabalho de conecta toda hora==================
+		btnRenderse_jogador1.addActionListener(render);
+		btnRenderse_jogador2.addActionListener(render);
 
-		atorNetGames.conectar("Um cara ai", "localhost");
-		mntmNovaPartida.setEnabled(true);
-		mntmDesconectar.setEnabled(true);
-
-		// ========================================
-
+		desabilitaBotoes();
 		return retorno;
+	}
+
+	// ================METODOS=================//
+
+	public void limpaTabuleiro() {
+		for (Posicao pos : tabuleiro.getPosicoes()) {
+			pos.limpaPosicao();
+		}
 	}
 
 	public void informarMsg(String msg) {
 		JOptionPane.showMessageDialog(getFrmAgon(), msg);
 	}
 
-	//Algoritimo 1
 	public void iniciarPartidaRede(boolean comecaFalando) {
-
+		limpaTabuleiro();
 		String nomeAdversario = atorNetGames.obterNomeAdversario();
 
 		if (comecaFalando) {
 			jogo.criarParticipante(this.nome);
 			jogo.criarParticipante(nomeAdversario);
 			informarMsg("Começa Jogando");
-			desabilitaBotoesParaJogador1();
+			habilitaBotoesParaJogador1();
 		} else {
 			jogo.criarParticipante(nomeAdversario);
 			jogo.criarParticipante(this.nome);
 			informarMsg("Aguarde sua vez");
-			desabilitaBotoesParaJogador2();
+			habilitaBotoesParaJogador2();
 		}
 		panel_1.setBorder(new TitledBorder(null, jogo.getJogador1().getNome() + " - Preta", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
@@ -1409,39 +1459,78 @@ public class AtorJogador {
 		setQtdPecinhas();
 		jogo.setPartidaEmAndamento(true);
 	}
-	
-	//algoritimo 2
+
 	public void receberMovimentoRede(Movimento movimento) {
 		if (movimento.getTipoMovimento().equals("inserir")) {
-			movimento.setPaBtn(
-					getPosicaoDoTabuleiro(movimento.getPaBtn().getCordenadaX(), movimento.getPaBtn().getCordenadaY()));
+			movimento.setPaBtn(jogo.getPosicaoDoTabuleiro(movimento.getPaBtn().getCordenadaX(),
+					movimento.getPaBtn().getCordenadaY()));
 			if (movimento.getPecinha() instanceof Guerreiro) {
 				movimento.setPecinha(jogo.getGuerreiroDoJogador());
 			} else if (movimento.getPecinha() instanceof Rainha) {
 				movimento.setPecinha(jogo.getRainhaDoJogador());
 			}
 		} else if (movimento.getTipoMovimento().equals("mover")) {
-			movimento.setDeBtn(
-					getPosicaoDoTabuleiro(movimento.getDeBtn().getCordenadaX(), movimento.getDeBtn().getCordenadaY()));
-			movimento.setPaBtn(
-					getPosicaoDoTabuleiro(movimento.getPaBtn().getCordenadaX(), movimento.getPaBtn().getCordenadaY()));
+			movimento.setDeBtn(jogo.getPosicaoDoTabuleiro(movimento.getDeBtn().getCordenadaX(),
+					movimento.getDeBtn().getCordenadaY()));
+			movimento.setPaBtn(jogo.getPosicaoDoTabuleiro(movimento.getPaBtn().getCordenadaX(),
+					movimento.getPaBtn().getCordenadaY()));
 
+		} else if (movimento.getTipoMovimento().equals("render")) {
+			jogo.setPartidaEmAndamento(false);
+			informarMsg("Parabens você é o vencedor");
+			finalizaPartida();
 		}
 
 		jogo.tratarMovimento(movimento);
+		jogo.limpaPecinhasCercadas();
 		jogo.verificaSePerdeu();
 		jogo.passaVez();
 		setQtdPecinhas();
-
 	}
 
-	public Posicao getPosicaoDoTabuleiro(Integer cordenadaX, Integer cordenadaY) {
-		for (Posicao pos : getTabuleiro().getPosicoes()) {
-			if (pos.getCordenadaX().equals(cordenadaX) && pos.getCordenadaY().equals(cordenadaY)) {
-				return pos;
-			}
-		}
-		return null;
+	public void finalizaPartida() {
+		jogo.setJogadores();
+		desabilitaBotoes();
+	}
+
+	public void setQtdPecinhas() {
+		rainhasJogador1.setText("" + jogo.getJogador1().getRainhas().size());
+		guerreirosJogador1.setText("" + jogo.getJogador1().getGuerreiros().size());
+
+		rainhasJogador2.setText("" + jogo.getJogador2().getRainhas().size());
+		guerreirosJogador2.setText("" + jogo.getJogador2().getGuerreiros().size());
+	}
+
+	public void habilitaBotoesParaJogador2() {
+
+		btnColocarRainha_jogador2.setEnabled(true);
+		btnColocarGuerreiro_jogador2.setEnabled(true);
+		btnRenderse_jogador2.setEnabled(true);
+	}
+
+	public void habilitaBotoesParaJogador1() {
+
+		btnColocarRainha_jogador1.setEnabled(true);
+		btnColocarGuerreiro_jogador1.setEnabled(true);
+		btnRenderse_jogador1.setEnabled(true);
+	}
+
+	public void desabilitaBotoes() {
+		btnColocarRainha_jogador1.setEnabled(false);
+		btnColocarGuerreiro_jogador1.setEnabled(false);
+		btnRenderse_jogador1.setEnabled(false);
+
+		btnColocarRainha_jogador2.setEnabled(false);
+		btnColocarGuerreiro_jogador2.setEnabled(false);
+		btnRenderse_jogador2.setEnabled(false);
+	}
+
+	public Tabuleiro getTabuleiro() {
+		return this.tabuleiro;
+	}
+
+	public JFrame getFrmAgon() {
+		return this.frmAgon;
 	}
 
 }

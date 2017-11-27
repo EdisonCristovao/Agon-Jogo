@@ -25,6 +25,13 @@ public class Movimento implements Jogada {
 		this.deBtn = null;
 		this.tipoMovimento = tipoMovimento;
 	}
+	
+	public Movimento(String tipoMovimento) {
+		this.pecinha = null;
+		this.paBtn = null;
+		this.deBtn = null;
+		this.tipoMovimento = tipoMovimento;
+	}
 
 	public Posicao getDeBtn() {
 		return deBtn;
@@ -57,9 +64,4 @@ public class Movimento implements Jogada {
 	public void setTipoMovimento(String tipoMovimento) {
 		this.tipoMovimento = tipoMovimento;
 	}
-	
-	
-	
-	
-
 }

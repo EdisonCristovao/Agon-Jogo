@@ -7,6 +7,10 @@ import br.ufsc.inf.leobr.cliente.Jogada;
 
 public class Pecinha implements Jogada{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String cor;
 	private Boolean posF6;
 	private ImageIcon icon;

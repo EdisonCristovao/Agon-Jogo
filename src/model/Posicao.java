@@ -41,8 +41,6 @@ public class Posicao extends JButton implements Jogada{
 		this.posOcupada = posOcupada;
 	}
 	
-	
-	
 	public Integer getCordenadaX() {
 		return cordenadaX;
 	}
@@ -66,6 +64,11 @@ public class Posicao extends JButton implements Jogada{
 	public void setTrilha(Character trilha) {
 		this.trilha = trilha;
 	}
+	
+	public void limpaPosicao() {
+		this.pecinha = null;
+		this.setIcon(new ImageIcon(""));
+	}
 
 	public Pecinha removePecinha() {
 		Pecinha retorno = pecinha;
@@ -74,7 +77,4 @@ public class Posicao extends JButton implements Jogada{
 		this.posOcupada = false;
 		return retorno;
 	}
-	
-	
-
 }

@@ -10,22 +10,22 @@ public class Jogador {
 	private List<Rainha> rainhas;
 	private List<Guerreiro> guerreiros;
 	private String cor;
-	
+
 	public Jogador(String nome, String cor) {
 		this.nome = nome;
 		this.vez = false;
 		this.cor = cor;
 		rainhas = criaRainhas();
 		guerreiros = criaGuerreiros();
-		
-		
+
 	}
 
 	private List<Guerreiro> criaGuerreiros() {
-		List<Guerreiro> retorno = new ArrayList<Guerreiro>();;
+		List<Guerreiro> retorno = new ArrayList<Guerreiro>();
+		;
 		for (int i = 0; i < 8; i++) {
 			Guerreiro g1 = new Guerreiro(this.cor);
-			retorno.add(g1);	
+			retorno.add(g1);
 		}
 		return retorno;
 	}
@@ -34,14 +34,14 @@ public class Jogador {
 		List<Rainha> retorno = new ArrayList<Rainha>();
 		Rainha r1 = new Rainha(this.cor);
 		retorno.add(r1);
-		
+
 		return retorno;
 	}
 
 	public void tomaVez() {
 		this.vez = true;
 	}
-	
+
 	public void passaVez() {
 		this.vez = false;
 	}
@@ -49,7 +49,7 @@ public class Jogador {
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public String getCor() {
 		return cor;
 	}
@@ -66,8 +66,6 @@ public class Jogador {
 		return guerreiros;
 	}
 
-	
-	
 	public Boolean getVez() {
 		return vez;
 	}
@@ -84,7 +82,7 @@ public class Jogador {
 		guerreiros.remove(0);
 		return retorno;
 	}
-	
+
 	public Rainha getUmRainha() {
 		if (rainhas.size() == 0) {
 			return null;
@@ -93,9 +91,5 @@ public class Jogador {
 		rainhas.remove(0);
 		return retorno;
 	}
-	
-	
-	
-	
 
 }

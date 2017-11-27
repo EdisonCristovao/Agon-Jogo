@@ -44,31 +44,29 @@ public class AtorNetGames implements OuvidorProxy {
 
 	@Override
 	public void finalizarPartidaComErro(String message) {
-
+		atorJogador.informarMsg("Jogo finalizado!!");
 	}
 
 	@Override
 	public void receberMensagem(String msg) {
-
+		atorJogador.informarMsg("Recebendo Jogada");
 	}
 
 	@Override
 	public void receberJogada(Jogada jogada) {
-		
 		Movimento movimento = (Movimento) jogada;
 		atorJogador.receberMovimentoRede(movimento);
 		ehMinhaVez = true;
-		
 	}
 
 	@Override
 	public void tratarConexaoPerdida() {
-
+		atorJogador.informarMsg("OPS, conexão perdida");
 	}
 
 	@Override
 	public void tratarPartidaNaoIniciada(String message) {
-
+		atorJogador.informarMsg("Erro, Sua partida nao pode ser iniciada");
 	}
 
 	public void conectar(String nome, String ip) {
@@ -109,13 +107,16 @@ public class AtorNetGames implements OuvidorProxy {
 
 	public void enviarJogada(Movimento movimento) {
 		try {
-			System.out.println("Enviar Jogada");
 			proxy.enviaJogada(movimento);
 			ehMinhaVez = false;
 		} catch (NaoJogandoException e) {
 			JOptionPane.showMessageDialog(atorJogador.getFrmAgon(), e.getMessage());
 			System.out.println("Erro no enviar jogada");
 		}
+	}
+
+	public void setEhMinhaVez(boolean b) {
+		ehMinhaVez = false;
 	}
 
 }
