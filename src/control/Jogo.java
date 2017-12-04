@@ -180,7 +180,6 @@ public class Jogo {
 				if (inserirPossivel()) {
 					movimento = new Movimento(paBtn, pecinha, "inserir");
 					tratarMovimento(movimento);
-
 					passaVez();
 					esvaziarTudo();
 					atorJogador.setQtdPecinhas();

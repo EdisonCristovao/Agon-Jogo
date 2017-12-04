@@ -1328,7 +1328,9 @@ public class AtorJogador {
 						+ "cerca-la com seus guerreiros.\n" + "\n" + "Como jogar.\n" + "\n"
 						+ "jogadores inserem as peças na borda do tabuleiro.\n"
 						+ "jogadores apenas podem avançar para o centro ou dentro da propria trilha.\n"
-						+ "jogadores podem cercar o inimigo colocando uma peça em cada lado.\n" + "\n"
+						+ "jogadores podem cercar o inimigo colocando uma peça em cada lado.\n"
+						+ "Quando a rainha atinge o centro do tabuleiro, se torna impossível movê-la, assim como o guerreiro\n "
+						+ "chegar em uma posição que cerca a rainha, também não pode se mover, nem na própria trilha.\n\n"
 						+ "Desenvolvedor: Edison Cristovao Junior.\n" + "Materia: Engenharia de Software I 2017.2.\n"
 						+ "Prof: Dr Ricardo Pereira e Silva\n" + "\n" + "\n" + "\n" + "\n" + "", "Regras do jogo", 1,
 						null);
